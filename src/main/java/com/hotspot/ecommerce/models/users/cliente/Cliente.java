@@ -2,10 +2,7 @@ package com.hotspot.ecommerce.models.users.cliente;
 
 import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.pagamento.FormatoPagamentoPreferencial;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -14,6 +11,7 @@ import java.util.Date;
 public class Cliente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
     private Long id_cliente;
     private String usuario;
