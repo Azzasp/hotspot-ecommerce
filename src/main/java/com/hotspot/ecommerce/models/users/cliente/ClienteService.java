@@ -20,4 +20,8 @@ public class ClienteService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("Usuario: %s não existe.", username)));
     }
+
+    public UserDetails registrarCliente(Cliente cliente){
+        return clienteRepository.save(cliente);
+    }
 }
