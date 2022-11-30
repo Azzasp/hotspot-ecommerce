@@ -1,10 +1,8 @@
 package com.hotspot.ecommerce.models.users.cliente;
 
-import com.hotspot.ecommerce.models.endereco.Endereco;
-import com.hotspot.ecommerce.models.pagamento.FormatoPagamentoPreferencial;
+
 import com.hotspot.ecommerce.models.users.role.UserRole;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,10 +23,14 @@ public class Cliente implements UserDetails {
 
     @SequenceGenerator(
             name = "user_sequence",
-            sequenceName = "user_sequence"
+            sequenceName = "user_sequence",
+            allocationSize = 1
     )
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
     @Column(name = "id_cliente")
     private Long id_cliente;
     private String usuario;
@@ -39,13 +41,12 @@ public class Cliente implements UserDetails {
     private String telefone;
     private String CPF;
     private Date data_nasc;
-    private Endereco endereco;
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;
     private boolean enabled;
-    private FormatoPagamentoPreferencial formatoPagamento;
 
-    public Cliente(String usuario, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, Endereco endereco, UserRole userRole, boolean locked, boolean enabled, FormatoPagamentoPreferencial formatoPagamento) {
+    public Cliente(String usuario, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, UserRole userRole, boolean locked, boolean enabled) {
         this.usuario = usuario;
         this.senha = senha;
         this.chave_sec = chave_sec;
@@ -54,11 +55,9 @@ public class Cliente implements UserDetails {
         this.telefone = telefone;
         this.CPF = CPF;
         this.data_nasc = data_nasc;
-        this.endereco = endereco;
         this.userRole = userRole;
         this.locked = locked;
         this.enabled = enabled;
-        this.formatoPagamento = formatoPagamento;
     }
 
     //Implementação do UserDetails
