@@ -33,7 +33,7 @@ public class Cliente implements UserDetails {
     )
     @Column(name = "id_cliente")
     private Long id_cliente;
-    private String usuario;
+    private String username;
     private String senha;
     private String chave_sec;
     private String nome;
@@ -46,8 +46,8 @@ public class Cliente implements UserDetails {
     private boolean locked;
     private boolean enabled;
 
-    public Cliente(String usuario, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, UserRole userRole, boolean locked, boolean enabled) {
-        this.usuario = usuario;
+    public Cliente(String username, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, UserRole userRole, boolean locked, boolean enabled) {
+        this.username = username;
         this.senha = senha;
         this.chave_sec = chave_sec;
         this.nome = nome;
@@ -75,7 +75,7 @@ public class Cliente implements UserDetails {
 
     @Override
     public String getUsername() {
-        return usuario;
+        return username;
     }
 
     @Override

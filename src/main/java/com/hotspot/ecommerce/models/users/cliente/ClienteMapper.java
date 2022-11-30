@@ -1,10 +1,12 @@
 package com.hotspot.ecommerce.models.users.cliente;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component()
 public final class ClienteMapper {
 
     protected ModelMapper modelMapper = new ModelMapper();

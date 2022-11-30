@@ -36,7 +36,7 @@ public class ClienteDTO {
 
     public ClienteDTO(Cliente cliente) {
         this.id_cliente = cliente.getId_cliente();
-        this.usuario = cliente.getUsuario();
+        this.usuario = cliente.getUsername();
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
         this.telefone = cliente.getTelefone();
