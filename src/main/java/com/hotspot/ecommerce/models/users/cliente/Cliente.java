@@ -2,16 +2,33 @@ package com.hotspot.ecommerce.models.users.cliente;
 
 import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.pagamento.FormatoPagamentoPreferencial;
+import com.hotspot.ecommerce.models.users.role.UserRole;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements UserDetails {
 
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence"
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_cliente")
     private Long id_cliente;
     private String usuario;
@@ -23,22 +40,12 @@ public class Cliente {
     private String CPF;
     private Date data_nasc;
     private Endereco endereco;
+    private UserRole userRole;
+    private boolean locked;
+    private boolean enabled;
     private FormatoPagamentoPreferencial formatoPagamento;
 
-    public Cliente() {
-    }
-
-    public Cliente(Long id_cliente,
-                   String usuario,
-                   String senha,
-                   String chave_sec,
-                   String nome,
-                   String email,
-                   String telefone,
-                   String CPF,
-                   Date data_nasc,
-                   Endereco endereco) {
-        this.id_cliente = id_cliente;
+    public Cliente(String usuario, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, Endereco endereco, UserRole userRole, boolean locked, boolean enabled, FormatoPagamentoPreferencial formatoPagamento) {
         this.usuario = usuario;
         this.senha = senha;
         this.chave_sec = chave_sec;
@@ -48,93 +55,49 @@ public class Cliente {
         this.CPF = CPF;
         this.data_nasc = data_nasc;
         this.endereco = endereco;
+        this.userRole = userRole;
+        this.locked = locked;
+        this.enabled = enabled;
+        this.formatoPagamento = formatoPagamento;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    //Implementação do UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority =
+                new SimpleGrantedAuthority(userRole.name());
+        return Collections.singletonList(authority);
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getSenha() {
+    @Override
+    public String getPassword() {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    @Override
+    public String getUsername() {
+        return usuario;
     }
 
-    public String getChave_sec() {
-        return chave_sec;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setChave_sec(String chave_sec) {
-        this.chave_sec = chave_sec;
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
-    public Date getData_nasc() {
-        return data_nasc;
-    }
-
-    public void setData_nasc(Date data_nasc) {
-        this.data_nasc = data_nasc;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public FormatoPagamentoPreferencial getFormatoPagamento() {
-        return formatoPagamento;
-    }
-
-    public void setFormatoPagamentoPreferencial(FormatoPagamentoPreferencial formatoPagamento) {
-        this.formatoPagamento = formatoPagamento;
-    }
 }
