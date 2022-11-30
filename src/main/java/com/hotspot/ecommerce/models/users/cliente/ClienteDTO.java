@@ -42,8 +42,6 @@ public class ClienteDTO {
         this.telefone = cliente.getTelefone();
         this.CPF = cliente.getCPF();
         this.data_nasc = cliente.getData_nasc();
-        this.endereco = cliente.getEndereco();
-        this.formatoPagamento = cliente.getFormatoPagamento();
     }
 
 

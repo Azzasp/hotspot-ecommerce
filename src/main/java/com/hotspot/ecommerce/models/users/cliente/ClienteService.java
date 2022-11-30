@@ -27,7 +27,7 @@ public class ClienteService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("Usuario: %s não existe.", username)));
     }
-    @GetMapping(path = "/")
+
     public ResponseEntity<List<ClienteDTO>> findAll(){
         return ResponseEntity.ok(
                 clienteRepository.findAll().stream()
@@ -36,20 +36,17 @@ public class ClienteService implements UserDetailsService {
         );
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ClienteDTO> findById(Long id){
         var cliente = clienteRepository.findById(id).orElse(null);
         return ResponseEntity.ok(clienteMapper.toClienteDTO(cliente));
     }
 
-    @PostMapping(path = "/")
     public ResponseEntity<Cliente> registrarCliente(ClienteDTO clienteDTO){
         var cliente = clienteMapper.toCliente(clienteDTO);
         clienteRepository.save(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
-    @DeleteMapping(path = "/{id}")
     public ResponseEntity deleteById(@PathVariable Long id){
         clienteRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
