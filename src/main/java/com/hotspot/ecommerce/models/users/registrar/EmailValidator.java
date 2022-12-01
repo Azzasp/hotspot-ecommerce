@@ -1,4 +1,4 @@
-package com.hotspot.ecommerce.models.users.cliente.registrar;
+package com.hotspot.ecommerce.models.users.registrar;
 
 import java.util.function.Predicate;
 

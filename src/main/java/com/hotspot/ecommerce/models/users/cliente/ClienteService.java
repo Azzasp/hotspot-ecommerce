@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.models.users.cliente;
 
 import com.hotspot.ecommerce.models.users.cliente.repository.ClienteRepository;
+import com.hotspot.ecommerce.models.users.registrar.RegistrarService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ClienteService implements UserDetailsService {
 
     private ClienteRepository clienteRepository;
+    private RegistrarService registrarService;
     private final ClienteMapper clienteMapper;
 
     @Override
@@ -42,9 +44,7 @@ public class ClienteService implements UserDetailsService {
     }
 
     public ResponseEntity<ClienteDTO> registrarCliente(ClienteDTO clienteDTO){
-        var cliente = clienteMapper.toCliente(clienteDTO);
-        clienteRepository.save(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
+        return registrarService.registrarCliente(clienteDTO);
     }
 
     public ResponseEntity deleteById(@PathVariable Long id){
