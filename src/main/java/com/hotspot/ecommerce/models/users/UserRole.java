@@ -1,4 +1,4 @@
-package com.hotspot.ecommerce.models.users.role;
+package com.hotspot.ecommerce.models.users;
 
 public enum UserRole {
     USUARIO,

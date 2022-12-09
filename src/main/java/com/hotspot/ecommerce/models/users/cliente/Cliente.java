@@ -1,7 +1,7 @@
 package com.hotspot.ecommerce.models.users.cliente;
 
 
-import com.hotspot.ecommerce.models.users.role.UserRole;
+import com.hotspot.ecommerce.models.users.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

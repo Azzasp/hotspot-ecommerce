@@ -34,6 +34,8 @@ public class ClienteDTO {
         this.formatoPagamento = formatoPagamento;
     }
 
+    /*
+        "Prototype" // iria copiar o Cliente em ClienteDTO, mas ja temos o ClienteMapper
     public ClienteDTO(Cliente cliente) {
         this.id_cliente = cliente.getId_cliente();
         this.usuario = cliente.getUsername();
@@ -42,7 +44,7 @@ public class ClienteDTO {
         this.telefone = cliente.getTelefone();
         this.CPF = cliente.getCPF();
         this.data_nasc = cliente.getData_nasc();
-    }
+    }*/
 
 
 }

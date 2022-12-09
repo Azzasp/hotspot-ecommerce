@@ -17,14 +17,8 @@ public class ClienteController {
 
     //Visualizar perfil
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ClienteDTO> visualizarPerfil(@PathVariable Long id){
         return clienteService.findById(id);
-    }
-
-    // pedido de registro
-    @PostMapping(path = "/registrar")
-    public ResponseEntity<ClienteDTO> registrarCliente(@RequestBody ClienteDTO clienteDTO){
-        return clienteService.registrarCliente(clienteDTO);
     }
 
     @DeleteMapping(path = "/{id}")

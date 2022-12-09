@@ -30,14 +30,6 @@ public class ClienteService implements UserDetailsService {
                         String.format("Usuario: %s não existe.", username)));
     }
 
-    public ResponseEntity<List<ClienteDTO>> findAll(){
-        return ResponseEntity.ok(
-                clienteRepository.findAll().stream()
-                        .map(clienteMapper::toClienteDTO)
-                        .collect(Collectors.toList())
-        );
-    }
-
     public ResponseEntity<ClienteDTO> findById(Long id){
         var cliente = clienteRepository.findById(id).orElse(null);
         return ResponseEntity.ok(clienteMapper.toClienteDTO(cliente));

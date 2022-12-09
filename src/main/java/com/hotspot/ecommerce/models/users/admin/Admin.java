@@ -1,11 +1,9 @@
-package com.hotspot.ecommerce.models.users.empresa;
+package com.hotspot.ecommerce.models.users.admin;
 
 import com.hotspot.ecommerce.models.users.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,33 +13,39 @@ import java.util.Collections;
 import java.util.Date;
 
 @Entity
-@Table(name = "empresa")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Empresa implements UserDetails {
+public class Admin implements UserDetails {
+    @SequenceGenerator(
+            name = "admin_sequence",
+            sequenceName = "admin_sequence",
+            allocationSize = 1
+    )
     @Id
-    @SequenceGenerator(name = "empresa_sequence",
-            sequenceName = "empresa_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "empresa_sequence")
-    private Long id_empresa;
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "admin_sequence"
+    )
+    @Column(name = "id_admin")
+    private Long id_admin;
     private String username;
-    private String nome;
     private String senha;
     private String chave_sec;
-    private String nomeEmpresa;
-    private String email;
-    private String telefone;
-    private String CNPJ;
+    private String nome;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;
     private boolean enabled;
 
+    public Admin(String username, String senha, String chave_sec, String nome, UserRole userRole) {
+        this.username = username;
+        this.senha = senha;
+        this.chave_sec = chave_sec;
+        this.nome = nome;
+        this.userRole = userRole;
+    }
 
+    //Implementação do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =

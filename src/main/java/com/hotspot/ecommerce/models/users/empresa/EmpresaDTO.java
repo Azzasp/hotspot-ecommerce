@@ -1,8 +1,5 @@
-package com.hotspot.ecommerce.models.users.cliente;
+package com.hotspot.ecommerce.models.users.empresa;
 
-import com.hotspot.ecommerce.models.endereco.Endereco;
-import com.hotspot.ecommerce.models.pagamento.FormatoPagamentoPreferencial;
-import com.hotspot.ecommerce.models.users.empresa.Empresa;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +32,8 @@ public class EmpresaDTO {
         this.CNPJ = CNPJ;
     }
 
+    /*
+    "Prototype" // iria copiar a Empresa em EmpresaDTO, mas ja temos o EmpresaMapper
     public EmpresaDTO(Empresa empresa) {
         this.id_empresa = empresa.getId_empresa();
         this.username = empresa.getUsername();
@@ -42,7 +41,7 @@ public class EmpresaDTO {
         this.email = empresa.getEmail();
         this.telefone = empresa.getTelefone();
         this.CNPJ = empresa.getCNPJ();
-    }
+    }*/
 
 
 }
