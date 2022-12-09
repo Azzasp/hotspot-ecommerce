@@ -1,16 +1,19 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
 
+import com.hotspot.ecommerce.exceptions.NotFoundException;
 import com.hotspot.ecommerce.models.produto.ProdutoDTO;
 import com.hotspot.ecommerce.models.produto.ProdutoMapper;
 import com.hotspot.ecommerce.models.produto.repository.ProdutoRepository;
+import com.hotspot.ecommerce.models.servicos.ServicoDTO;
+import com.hotspot.ecommerce.models.servicos.ServicoMapper;
+import com.hotspot.ecommerce.models.servicos.repository.ServicoRepository;
 import com.hotspot.ecommerce.models.users.empresa.repository.EmpresaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.client.HttpClientErrorException;
+
 
 @Service
 @AllArgsConstructor
@@ -20,11 +23,19 @@ public class EmpresaService {
     private EmpresaMapper empresaMapper;
     private ProdutoRepository produtoRepository;
     private ProdutoMapper produtoMapper;
+    private ServicoRepository servicoRepository;
+    private ServicoMapper servicoMapper;
 
     //Empresa
     public ResponseEntity<EmpresaDTO> findById(Long id){
-        var empresa = empresaRepository.findById(id).orElseThrow(new NotFound());
+        var empresa = empresaRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Não foi possivel localizar %s", id)));
         return ResponseEntity.ok(empresaMapper.toEmpresaDTO(empresa));
+    }
+
+    public ResponseEntity<EmpresaDTO> updateEmpresa(EmpresaDTO empresaDTO){
+        empresaRepository.save(empresaMapper.toEmpresa(empresaDTO));
+        return ResponseEntity.ok(empresaDTO);
     }
 
     public ResponseEntity<EmpresaDTO> deleteById(Long id){
@@ -33,29 +44,53 @@ public class EmpresaService {
     }
 
     //Produto
-    public ResponseEntity<ProdutoDTO> cadastrarProduto(ProdutoDTO produtoDTO){
+    public ResponseEntity<ProdutoDTO> createProduto(ProdutoDTO produtoDTO){
         var produto = produtoMapper.toProduto(produtoDTO);
         produtoRepository.save(produto);
         return ResponseEntity.ok(produtoDTO);
     }
 
     public ResponseEntity<ProdutoDTO> findProdutoById(Long id){
-        // TODO: create Exception
-        return ResponseEntity.ok(produtoRepository.findById(id).orElseThrow(new NotFound()));
+        var produto = produtoRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Não foi possivel localizar %s", id)));
+        return ResponseEntity.ok(produtoMapper.toProdutoDTO(produto));
     }
 
-    public ResponseEntity<ProdutoDTO> alterarProduto(ProdutoDTO produtoDTO){
+    public ResponseEntity<ProdutoDTO> updateProduto(ProdutoDTO produtoDTO){
         produtoRepository.save(produtoMapper.toProduto(produtoDTO));
         return ResponseEntity.ok(produtoDTO);
     }
 
-    public ResponseEntity<ProdutoDTO> deletarProduto(Long id){
+    public ResponseEntity<ProdutoDTO> deleteProdutoById(Long id){
         produtoRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+
+
+
     //Serviço
-    
+    public ResponseEntity<ServicoDTO> createServico(ServicoDTO servicoDTO){
+        var produto = servicoMapper.toServico(servicoDTO);
+        servicoRepository.save(produto);
+        return ResponseEntity.ok(servicoDTO);
+    }
+
+    public ResponseEntity<ServicoDTO> findServicoById(Long id){
+        var servico = servicoRepository.findById(id).orElseThrow(
+                () -> new NotFoundException(String.format("Não foi possivel localizar %s", id)));
+        return ResponseEntity.ok(servicoMapper.toServicoDTO(servico));
+    }
+
+    public ResponseEntity<ServicoDTO> updateServico(ServicoDTO servicoDTO){
+        servicoRepository.save(servicoMapper.toServico(servicoDTO));
+        return ResponseEntity.ok(servicoDTO);
+    }
+
+    public ResponseEntity<ServicoDTO> deleteServicoById(Long id){
+        servicoRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 
 }
