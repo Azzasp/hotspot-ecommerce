@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.models.users.registrar;
 
 import com.hotspot.ecommerce.models.users.cliente.ClienteDTO;
+import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class RegistrarController {
 
     //Registrando Empresas
     @PostMapping(path = "/empresa")
-    public ResponseEntity<ClienteDTO> registrarEmpresa(EmpresaDTO empresaDTO){
+    public ResponseEntity<EmpresaDTO> registrarEmpresa(EmpresaDTO empresaDTO){
         return registrarService.registrarEmpresa(empresaDTO);
     }
 }

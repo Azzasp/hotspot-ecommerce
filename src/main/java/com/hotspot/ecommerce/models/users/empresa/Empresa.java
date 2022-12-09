@@ -1,8 +1,8 @@
-package com.hotspot.ecommerce.models.users.cliente;
-
+package com.hotspot.ecommerce.models.users.empresa;
 
 import com.hotspot.ecommerce.models.users.role.UserRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,53 +14,34 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
+@Entity
+@Table(name = "empresa")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "cliente")
-public class Cliente implements UserDetails {
-
-    @SequenceGenerator(
-            name = "cliente_sequence",
-            sequenceName = "cliente_sequence",
-            allocationSize = 1
-    )
+public class Empresa implements UserDetails {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "cliente_sequence"
-    )
-    @Column(name = "id_cliente")
-    private Long id_cliente;
+    @SequenceGenerator(name = "empresa_sequence",
+            sequenceName = "empresa_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "empresa_sequence")
+    private Long id_empresa;
     private String username;
+    private String nome;
     private String senha;
     private String chave_sec;
-    private String nome;
+    private String nomeEmpresa;
     private String email;
     private String telefone;
-    private String CPF;
-    private Date data_nasc;
+    private String CNPJ;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;
     private boolean enabled;
 
-    public Cliente(String username, String senha, String chave_sec, String nome, String email, String telefone, String CPF, Date data_nasc, UserRole userRole, boolean locked, boolean enabled) {
-        this.username = username;
-        this.senha = senha;
-        this.chave_sec = chave_sec;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.CPF = CPF;
-        this.data_nasc = data_nasc;
-        this.userRole = userRole;
-        this.locked = locked;
-        this.enabled = enabled;
-    }
 
-    //Implementação do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
@@ -97,6 +78,4 @@ public class Cliente implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-
-
 }
