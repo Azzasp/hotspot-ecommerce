@@ -29,11 +29,13 @@ public class RegistrarService {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteDTO);
     }
 
-    /*public String registrarEmpresa(EmpresaDTO empresaDTO){
+    public ResponseEntity<ClienteDTO> registrarEmpresa(EmpresaDTO empresaDTO){
+        var empresa = empresaMapper.toCliente(empresaDTO);
+        empresaRepository.save(cliente);
         boolean isEmailValid = emailValidator.test(empresaDTO.getEmail());
         if(!isEmailValid)
             throw new IllegalStateException(
                     String.format("Email %s não é valido",empresaDTO.getEmail()));
-        return "está funcionando";
-    }*/
+        return ResponseEntity.status(HttpStatus.CREATED).body(empresaDTO);
+    }
 }

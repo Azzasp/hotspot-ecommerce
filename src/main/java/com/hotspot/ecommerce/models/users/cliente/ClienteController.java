@@ -8,18 +8,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/cliente")
+@RequestMapping(path = "/api/cliente")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteController {
 
     private ClienteService clienteService;
 
+    //Visualizar perfil
     @GetMapping(path = "/{id}")
     public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
         return clienteService.findById(id);
     }
 
+    // pedido de registro
     @PostMapping(path = "/registrar")
     public ResponseEntity<ClienteDTO> registrarCliente(@RequestBody ClienteDTO clienteDTO){
         return clienteService.registrarCliente(clienteDTO);
@@ -30,8 +32,4 @@ public class ClienteController {
         return clienteService.deleteById(id);
     }
 
-    @GetMapping
-    public String helloworld(){
-        return "hello world!";
-    }
 }
