@@ -1,14 +1,11 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
-import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
+
 import com.hotspot.ecommerce.models.users.empresa.repository.EmpresaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
