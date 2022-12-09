@@ -1,8 +1,6 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
-import com.hotspot.ecommerce.models.users.cliente.Cliente;
-import com.hotspot.ecommerce.models.users.cliente.ClienteDTO;
-import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,9 @@
 package com.hotspot.ecommerce.models.users.registrar;
 
-import com.hotspot.ecommerce.models.users.cliente.Cliente;
 import com.hotspot.ecommerce.models.users.cliente.ClienteDTO;
 import com.hotspot.ecommerce.models.users.cliente.ClienteMapper;
-import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
 import com.hotspot.ecommerce.models.users.cliente.repository.ClienteRepository;
+import com.hotspot.ecommerce.models.users.empresa.EmpresaDTO;
 import com.hotspot.ecommerce.models.users.empresa.EmpresaMapper;
 import com.hotspot.ecommerce.models.users.empresa.repository.EmpresaRepository;
 import lombok.AllArgsConstructor;

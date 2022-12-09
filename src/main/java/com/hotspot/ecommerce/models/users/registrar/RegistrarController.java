@@ -1,7 +1,7 @@
 package com.hotspot.ecommerce.models.users.registrar;
 
 import com.hotspot.ecommerce.models.users.cliente.ClienteDTO;
-import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
+import com.hotspot.ecommerce.models.users.empresa.EmpresaDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

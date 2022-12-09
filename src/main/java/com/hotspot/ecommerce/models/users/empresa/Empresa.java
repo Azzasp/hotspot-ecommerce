@@ -1,5 +1,7 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
+import com.hotspot.ecommerce.models.produto.Produto;
+import com.hotspot.ecommerce.models.servicos.Servico;
 import com.hotspot.ecommerce.models.users.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 @Entity
 @Table(name = "empresa")
@@ -36,6 +37,10 @@ public class Empresa implements UserDetails {
     private String email;
     private String telefone;
     private String CNPJ;
+    @ManyToMany
+    private Servico servico;
+    @ManyToMany
+    private Produto produtos;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;

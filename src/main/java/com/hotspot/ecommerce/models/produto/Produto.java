@@ -1,15 +1,19 @@
-package com.hotspot.ecommerce.models.produtos;
+package com.hotspot.ecommerce.models.produto;
 
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "produtos")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produtos {
+@Getter
+@Setter
+public class Produto {
 
     @Id
     @SequenceGenerator(name = "produto_sequence", sequenceName = "produto_sequence", allocationSize = 1)
