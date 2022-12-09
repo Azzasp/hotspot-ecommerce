@@ -2,12 +2,16 @@ package com.hotspot.ecommerce.models.servicos;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "servico")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Servico {
     @SequenceGenerator(
             name = "servico_sequence",
@@ -19,7 +23,7 @@ public class Servico {
             strategy = GenerationType.SEQUENCE,
             generator = "servico_sequence"
     )
-    private String id_servico;
+    private Long id_servico;
     private String nome;
     private String descricao;
     private Double valor;

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class ServicoDTO {
 
-    private String id_servico;
+    private Long id_servico;
     private String nome;
     private String descricao;
     private Double valor;

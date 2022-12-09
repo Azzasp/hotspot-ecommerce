@@ -2,6 +2,7 @@ package com.hotspot.ecommerce.models.users.empresa;
 
 
 import com.hotspot.ecommerce.exceptions.NotFoundException;
+import com.hotspot.ecommerce.models.carrinho.CarrinhoService;
 import com.hotspot.ecommerce.models.produto.ProdutoDTO;
 import com.hotspot.ecommerce.models.produto.ProdutoMapper;
 import com.hotspot.ecommerce.models.produto.repository.ProdutoRepository;
@@ -25,8 +26,9 @@ public class EmpresaService {
     private ProdutoMapper produtoMapper;
     private ServicoRepository servicoRepository;
     private ServicoMapper servicoMapper;
+    private CarrinhoService carrinhoService;
 
-    //Empresa
+    //Empresa as user
     public ResponseEntity<EmpresaDTO> findById(Long id){
         var empresa = empresaRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Não foi possivel localizar %s", id)));
@@ -42,8 +44,23 @@ public class EmpresaService {
         empresaRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    //Adiciona produto/serviço ao Carrinho
+    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(ProdutoDTO produtoDTO){
+        return carrinhoService.addProdutoToCarrinho(produtoDTO);
+    }
+    public ResponseEntity<ServicoDTO> addServicoToCarrinho(ServicoDTO servicoDTO){
+        return carrinhoService.addServicoToCarrinho(servicoDTO);
+    }
 
-    //Produto
+
+    public ResponseEntity<ProdutoDTO> deleteProdutoCarrinho(ProdutoDTO produtoDTO){
+        return carrinhoService.deleteProdutoCarrinho(produtoDTO.getId_produto());
+    }
+    public ResponseEntity<ServicoDTO> deleteServicoCarrinho(ServicoDTO servicoDTO){
+        return carrinhoService.deleteServicoCarrinho(servicoDTO.getId_servico());
+    }
+
+    //Empresa as owning Produto
     public ResponseEntity<ProdutoDTO> createProduto(ProdutoDTO produtoDTO){
         var produto = produtoMapper.toProduto(produtoDTO);
         produtoRepository.save(produto);
@@ -69,7 +86,7 @@ public class EmpresaService {
 
 
 
-    //Serviço
+    //Empresa as owning Serviço
     public ResponseEntity<ServicoDTO> createServico(ServicoDTO servicoDTO){
         var produto = servicoMapper.toServico(servicoDTO);
         servicoRepository.save(produto);
