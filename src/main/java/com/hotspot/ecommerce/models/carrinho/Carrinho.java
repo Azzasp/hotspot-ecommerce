@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 @Entity
+@Table(name = "carrinho")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class Carrinho {
     @Id
@@ -24,13 +24,12 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "carrinho_sequence")
     private Long id_carrinho;
-    @ManyToMany
-    private Servico servico;
-    @ManyToMany
-    private Produto produto;
 
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Servico.class)
     private List<Servico> carrinhoServico;
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Produto.class)
     private List<Produto> carrinhoProduto;
 
-
+    public Carrinho() {
+    }
 }

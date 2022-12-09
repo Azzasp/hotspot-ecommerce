@@ -37,10 +37,6 @@ public class Empresa implements UserDetails {
     private String email;
     private String telefone;
     private String CNPJ;
-    @ManyToMany
-    private Servico servico;
-    @ManyToMany
-    private Produto produtos;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;

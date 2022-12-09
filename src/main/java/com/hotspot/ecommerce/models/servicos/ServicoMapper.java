@@ -1,10 +1,16 @@
 package com.hotspot.ecommerce.models.servicos;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class ServicoMapper {
 
     protected ModelMapper modelMapper = new ModelMapper();

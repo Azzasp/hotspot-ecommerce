@@ -1,8 +1,6 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
-import com.hotspot.ecommerce.models.users.cliente.EmpresaDTO;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
