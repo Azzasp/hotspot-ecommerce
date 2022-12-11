@@ -1,5 +1,6 @@
 package com.hotspot.ecommerce.models.users.empresa;
 
+import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.produto.Produto;
 import com.hotspot.ecommerce.models.servicos.Servico;
 import com.hotspot.ecommerce.models.users.UserRole;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "empresa")
@@ -37,10 +39,18 @@ public class Empresa implements UserDetails {
     private String email;
     private String telefone;
     private String CNPJ;
+    @ManyToOne
+    @JoinColumn(name = "endereco_id_endereco")
+    private Endereco endereco;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;
     private boolean enabled;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Servico.class, mappedBy = "empresa")
+    private List<Servico> servicos;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,targetEntity = Produto.class, mappedBy = "empresa")
+    private List<Produto> produtos;
 
 
     @Override

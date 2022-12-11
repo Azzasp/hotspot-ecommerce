@@ -2,12 +2,11 @@ package com.hotspot.ecommerce.models.carrinho;
 
 import com.hotspot.ecommerce.models.produto.Produto;
 import com.hotspot.ecommerce.models.servicos.Servico;
+import com.hotspot.ecommerce.models.users.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
@@ -25,10 +24,17 @@ public class Carrinho {
             generator = "carrinho_sequence")
     private Long id_carrinho;
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Servico.class)
-    private List<Servico> carrinhoServico;
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Produto.class)
-    private List<Produto> carrinhoProduto;
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @OneToMany
+    @JoinColumn(name = "servico_id")
+    private List<Servico> servicos;
+
+    @OneToMany
+    @JoinColumn(name = "produto_id")
+    private List<Produto> produtos;
 
     public Carrinho() {
     }

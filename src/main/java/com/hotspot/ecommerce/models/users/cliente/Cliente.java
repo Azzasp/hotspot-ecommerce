@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.models.users.cliente;
 
 
+import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.users.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -41,6 +42,9 @@ public class Cliente implements UserDetails {
     private String telefone;
     private String CPF;
     private Date data_nasc;
+    @ManyToOne
+    @JoinColumn(name = "endereco_id_endereco")
+    private Endereco endereco;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private boolean locked;

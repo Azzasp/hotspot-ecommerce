@@ -21,30 +21,23 @@ public class CarrinhoService {
     private ProdutoMapper produtoMapper;
     private ServicoMapper servicoMapper;
 
-    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(ProdutoDTO produtoDTO){
-        carrinho.getCarrinhoProduto().add(produtoMapper.toProduto(produtoDTO));
+    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(Long id){
+        carrinhoRepository.addProdutoToCarrinho(id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    public ResponseEntity<ServicoDTO> addServicoToCarrinho(ServicoDTO servicoDTO){
-        carrinho.getCarrinhoServico().add(servicoMapper.toServico(servicoDTO));
+    public ResponseEntity<ServicoDTO> addServicoToCarrinho(Long id){
+        carrinhoRepository.addServicoToCarrinho(id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
     public ResponseEntity<ServicoDTO> deleteServicoCarrinho(Long id){
-        carrinho.getCarrinhoServico().forEach((servico) -> {
-                if(servico.getId_servico() == id)
-                    carrinho.getCarrinhoServico().remove(servico);
-            });
+        carrinhoRepository.deleteServicoById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     public ResponseEntity<ProdutoDTO> deleteProdutoCarrinho(Long id){
-        carrinho.getCarrinhoProduto().forEach((produto) -> {
-            if(produto.getId_produto() == id)
-                carrinho.getCarrinhoProduto().remove(produto);
-        });
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

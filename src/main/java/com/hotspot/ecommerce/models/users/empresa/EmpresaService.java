@@ -45,11 +45,11 @@ public class EmpresaService {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     //Adiciona produto/serviço ao Carrinho
-    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(ProdutoDTO produtoDTO){
-        return carrinhoService.addProdutoToCarrinho(produtoDTO);
+    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(Long id){
+        return carrinhoService.addProdutoToCarrinho(id);
     }
-    public ResponseEntity<ServicoDTO> addServicoToCarrinho(ServicoDTO servicoDTO){
-        return carrinhoService.addServicoToCarrinho(servicoDTO);
+    public ResponseEntity<ServicoDTO> addServicoToCarrinho(Long id){
+        return carrinhoService.addServicoToCarrinho(id);
     }
 
 

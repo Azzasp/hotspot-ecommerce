@@ -1,10 +1,14 @@
 package com.hotspot.ecommerce.models.servicos;
 
+import com.hotspot.ecommerce.models.carrinho.Carrinho;
+import com.hotspot.ecommerce.models.users.empresa.Empresa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "servico")
@@ -28,4 +32,8 @@ public class Servico {
     private String descricao;
     private Double valor;
     private Status status;
+    @OneToOne
+    private Empresa empresa;
+    @OneToMany(targetEntity = Carrinho.class,fetch = FetchType.LAZY, mappedBy = "servicos")
+    private List<Carrinho> carrinho;
 }
