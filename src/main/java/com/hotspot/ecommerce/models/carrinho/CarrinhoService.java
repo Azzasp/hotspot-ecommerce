@@ -22,18 +22,18 @@ public class CarrinhoService {
     private ServicoMapper servicoMapper;
 
     public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(Long id){
-        carrinhoRepository.addProdutoToCarrinho(id);
+        //carrinhoRepository.addProdutoToCarrinho(id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public ResponseEntity<ServicoDTO> addServicoToCarrinho(Long id){
-        carrinhoRepository.addServicoToCarrinho(id);
+        //carrinhoRepository.addServicoToCarrinho(id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
     public ResponseEntity<ServicoDTO> deleteServicoCarrinho(Long id){
-        carrinhoRepository.deleteServicoById(id);
+        //carrinhoRepository.deleteServicoById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
