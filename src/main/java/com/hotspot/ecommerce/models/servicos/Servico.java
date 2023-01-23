@@ -34,6 +34,6 @@ public class Servico {
     private Status status;
     @OneToOne
     private Empresa empresa;
-    @OneToMany(targetEntity = Carrinho.class,fetch = FetchType.LAZY, mappedBy = "servicos")
-    private List<Carrinho> carrinho;
+//    @OneToMany(targetEntity = Carrinho.class,fetch = FetchType.LAZY, mappedBy = "servicos")
+//    private List<Carrinho> carrinho;
 }
