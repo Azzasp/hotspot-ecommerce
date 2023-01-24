@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.models.carrinho;
 
-import com.hotspot.ecommerce.models.produto.Produto;
+import com.hotspot.ecommerce.models.mercadorias.produto.Produto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

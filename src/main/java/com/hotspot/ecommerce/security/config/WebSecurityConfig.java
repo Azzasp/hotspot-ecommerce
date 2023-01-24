@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.security.config;
 
-import com.hotspot.ecommerce.models.users.cliente.ClienteService;
+import com.hotspot.ecommerce.models.usuarios.cliente.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

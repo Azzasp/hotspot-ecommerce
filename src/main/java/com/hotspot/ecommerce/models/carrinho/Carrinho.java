@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.models.carrinho;
 
-import com.hotspot.ecommerce.models.users.cliente.Cliente;
+import com.hotspot.ecommerce.models.usuarios.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
