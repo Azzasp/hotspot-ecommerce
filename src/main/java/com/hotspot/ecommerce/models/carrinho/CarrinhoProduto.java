@@ -39,12 +39,6 @@ public class CarrinhoProduto {
 
         private Carrinho carrinho;
         private Produto produto;
-
-        public CarrinhoProdutoId(Carrinho id_carrinho, Produto id_produto) {
-            super();
-            this.carrinho = id_carrinho;
-            this.produto = id_produto;
-        }
     }
 }
 
