@@ -2,7 +2,9 @@ package com.hotspot.ecommerce.models.usuarios.empresa;
 
 
 import com.hotspot.ecommerce.exceptions.NotFoundException;
+import com.hotspot.ecommerce.models.carrinho.Carrinho;
 import com.hotspot.ecommerce.models.carrinho.CarrinhoService;
+import com.hotspot.ecommerce.models.mercadorias.produto.Produto;
 import com.hotspot.ecommerce.models.mercadorias.produto.ProdutoDTO;
 import com.hotspot.ecommerce.models.mercadorias.produto.ProdutoMapper;
 import com.hotspot.ecommerce.models.mercadorias.produto.repository.ProdutoRepository;
@@ -45,19 +47,23 @@ public class EmpresaService {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     //Adiciona produto/serviço ao Carrinho
-    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(Long id){
-        return carrinhoService.addProdutoToCarrinho(id);
+    public ResponseEntity<ProdutoDTO> addProdutoToCarrinho(Carrinho carrinho, Produto produto, int quantidade){
+        return carrinhoService.addProdutoToCarrinho(carrinho, produto, quantidade);
     }
+    // TODO: Fix method addServico Method
     public ResponseEntity<ServicoDTO> addServicoToCarrinho(Long id){
-        return carrinhoService.addServicoToCarrinho(id);
+        return ResponseEntity.ok(new ServicoDTO());
     }
 
 
-    public ResponseEntity<ProdutoDTO> deleteProdutoCarrinho(ProdutoDTO produtoDTO){
-        return carrinhoService.deleteProdutoCarrinho(produtoDTO.getId_produto());
+    public ResponseEntity<ProdutoDTO> deleteProdutoCarrinho(ProdutoDTO produtoDTO, Carrinho carrinho){
+        var produto = produtoMapper.toProduto(produtoDTO);
+        return carrinhoService.deleteProdutoCarrinho(produto, carrinho);
     }
+
+    // TODO: Fix method deleteServico Method
     public ResponseEntity<ServicoDTO> deleteServicoCarrinho(ServicoDTO servicoDTO){
-        return carrinhoService.deleteServicoCarrinho(servicoDTO.getId_servico());
+        return ResponseEntity.ok(servicoDTO);
     }
 
     //Empresa as owning Produto

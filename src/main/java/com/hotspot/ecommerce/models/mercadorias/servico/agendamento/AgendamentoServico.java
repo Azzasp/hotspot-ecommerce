@@ -1,7 +1,8 @@
-package com.hotspot.ecommerce.models.mercadorias.servico;
+package com.hotspot.ecommerce.models.mercadorias.servico.agendamento;
 
 import com.hotspot.ecommerce.models.endereco.Endereco;
-import com.hotspot.ecommerce.models.mercadorias.servico.agendamento.Agendamento;
+import com.hotspot.ecommerce.models.mercadorias.servico.Estado;
+import com.hotspot.ecommerce.models.mercadorias.servico.Servico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
