@@ -41,7 +41,7 @@ public class CarrinhoService {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    public ResponseEntity<Carrinho> deleteAllProdutosFromCarrinho(Carrinho carrinho){
+    public ResponseEntity<ProdutoDTO> deleteAllProdutosFromCarrinho(Carrinho carrinho){
         carrinhoProdutoRepository.deleteAllProdutos(carrinho.getId_carrinho());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
