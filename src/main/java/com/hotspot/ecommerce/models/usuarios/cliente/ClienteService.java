@@ -32,11 +32,8 @@ public class ClienteService implements UserDetailsService {
         return ResponseEntity.ok(clienteMapper.toClienteDTO(cliente));
     }
 
-    public ResponseEntity<ClienteDTO> registrarCliente(ClienteDTO clienteDTO){
-        return registrarService.registrarCliente(clienteDTO);
-    }
 
-    public ResponseEntity deleteById(@PathVariable Long id){
+    public ResponseEntity<ClienteDTO> deleteById(@PathVariable Long id){
         clienteRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
