@@ -46,6 +46,16 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "endereco_id_endereco")
     private Endereco endereco;
 
+    public Usuario(String username, String senha, String chave_sec, String nome, String email, String telefone,UserRole tipoUsuario) {
+        this.username = username;
+        this.senha = senha;
+        this.chave_sec = chave_sec;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     //Implementing UserDetails
     private boolean locked;
     private boolean enabled;
