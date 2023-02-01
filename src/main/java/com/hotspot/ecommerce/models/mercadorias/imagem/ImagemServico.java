@@ -9,8 +9,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "imagem_servico")
 @IdClass(ImagemServico.ImagemServicoId.class)
-@Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ImagemServico {
 
     @Id

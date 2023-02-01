@@ -2,13 +2,11 @@ package com.hotspot.ecommerce.models.mercadorias.imagem;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
 
-import java.util.Objects;
 
 @Entity
 @Table(name = "imagens")
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
