@@ -1,7 +1,7 @@
 package com.hotspot.ecommerce.models.mercadorias.servico.agendamento;
 
 import com.hotspot.ecommerce.models.endereco.Endereco;
-import com.hotspot.ecommerce.models.mercadorias.servico.Estado;
+import com.hotspot.ecommerce.models.mercadorias.servico.EstadoServico;
 import com.hotspot.ecommerce.models.mercadorias.servico.Servico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class AgendamentoServico {
     private Double valor_total;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado_agendamento;
+    private EstadoServico estado_agendamento;
     @OneToOne
     private Endereco endereco_entrega;
 

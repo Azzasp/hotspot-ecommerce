@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.models.mercadorias.servico;
 
-public enum Estado {
+public enum EstadoServico {
     ABERTO,
     FECHADO,
     FINALIZADO;

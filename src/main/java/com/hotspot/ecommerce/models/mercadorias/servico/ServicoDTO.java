@@ -15,7 +15,7 @@ public class ServicoDTO {
     private String nome;
     private String descricao;
     private Double valor;
-    private Estado status;
+    private EstadoServico status;
 
 
 }
