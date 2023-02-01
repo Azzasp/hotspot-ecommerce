@@ -26,6 +26,7 @@ public class Cliente extends Usuario{
         this.ano_nasc = ano_nasc;
     }
 
+    @Column(unique = true)
     private String CPF;
     private Year ano_nasc;
 

@@ -25,6 +25,7 @@ public class Empresa extends Usuario {
         this.CNPJ = CNPJ;
     }
 
+    @Column(unique = true)
     private String CNPJ;
 
 

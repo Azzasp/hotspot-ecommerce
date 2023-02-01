@@ -33,10 +33,12 @@ public class Usuario implements UserDetails {
     )
     @Column(name = "id_usuario")
     private Long id_usuario;
+    @Column(unique = true)
     private String username;
     private String senha;
     private String chave_sec;
     private String nome;
+    @Column(unique = true)
     private String email;
     private String telefone;
 
