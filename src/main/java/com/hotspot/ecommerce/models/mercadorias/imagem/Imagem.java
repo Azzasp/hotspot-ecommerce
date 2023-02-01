@@ -3,6 +3,8 @@ package com.hotspot.ecommerce.models.mercadorias.imagem;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "imagens")
@@ -10,7 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Imagem {
     @Id
     @SequenceGenerator(name = "imagem_sequence",
@@ -19,4 +20,9 @@ public class Imagem {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "imagem_sequence")
     private Long id_imagem;
 
+    @OneToMany(mappedBy = "imagem")
+    private List<ImagemProduto> produtos;
+
+    @OneToMany(mappedBy = "servico")
+    private List<ImagemServico> servicos;
 }

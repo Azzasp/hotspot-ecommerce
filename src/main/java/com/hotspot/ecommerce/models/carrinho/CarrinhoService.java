@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CarrinhoService {
 
+    // TODO: Refactor Logic
+
     private Carrinho carrinho;
     private CarrinhoRepository carrinhoRepository;
     private ProdutoMapper produtoMapper;
