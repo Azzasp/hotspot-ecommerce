@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.security.config.auth.requests;
 
 
+import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.usuarios.enums.UserRole;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class RegisterRequestCliente {
     private UserRole tipoUsuario;
     private String CPF;
     private Year ano_nasc;
+    private Endereco endereco;
 
 }

@@ -1,7 +1,6 @@
 package com.hotspot.ecommerce.models.usuarios.cliente;
 
 import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
-import com.hotspot.ecommerce.models.usuarios.registrar.RegistrarService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Service
 @AllArgsConstructor
-public class ClienteService implements UserDetailsService {
+public class ClienteService{
 
     private ClienteRepository clienteRepository;
-    private RegistrarService registrarService;
     private final ClienteMapper clienteMapper;
 
-    @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-        return clienteRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format("Usuario: %s não existe.", username)));
-    }
 
     public ResponseEntity<ClienteDTO> findById(Long id){
         var cliente = clienteRepository.findById(id).orElse(null);

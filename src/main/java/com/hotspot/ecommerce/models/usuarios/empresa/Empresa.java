@@ -1,5 +1,6 @@
 package com.hotspot.ecommerce.models.usuarios.empresa;
 
+import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.mercadorias.produto.Produto;
 import com.hotspot.ecommerce.models.mercadorias.servico.Servico;
 import com.hotspot.ecommerce.models.usuarios.Usuario;
@@ -20,8 +21,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Empresa extends Usuario {
 
-    public Empresa(String username, String senha, String chave_sec, String nome, String email, String telefone, UserRole tipoUsuario, String CNPJ) {
-        super(username, senha, chave_sec, nome, email, telefone, tipoUsuario);
+    public Empresa(String username, String senha, String chave_sec, String nome, String email, String telefone, UserRole tipoUsuario, String CNPJ, Endereco endereco) {
+        super(username, senha, chave_sec, nome, email, telefone, tipoUsuario, endereco);
         this.CNPJ = CNPJ;
     }
 

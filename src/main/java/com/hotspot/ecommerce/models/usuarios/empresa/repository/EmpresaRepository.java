@@ -9,7 +9,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
-    @Query("select (count(e) > 0) from Empresa e where e.CNPJ like ?1")
-    boolean validateCnpj(@NonNull String CNPJ);
+    @Query("select (count(e) > 0) from Empresa e where e.email like ?1")
+    boolean existEmail(@NonNull String email);
+
+    @Query("select (count(e) > 0) from Empresa e where e.username like ?1")
+    boolean existUsername(@NonNull String username);
+
 
 }
