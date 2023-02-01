@@ -37,9 +37,8 @@ public class AuthenticationService {
     public AuthenticationResponse registerCliente(RegisterRequestCliente request) {
 
         if(!validatorService.usernameValidator(request.getUsername())) throw new IllegalStateException();
-        if(!validatorService.emailValidator(request.getEmail())
-           && !validatorService.validateCPF(request.getCPF()))
-                throw new IllegalStateException();
+        if(!validatorService.emailValidator(request.getEmail())) throw new IllegalStateException();
+        if(!validatorService.validateCPF(request.getCPF())) throw new IllegalStateException();
 
         var usuario = new Cliente(request.getUsername(),
                                     passwordEncoder.encode(request.getSenha()),
@@ -61,9 +60,9 @@ public class AuthenticationService {
 
     public AuthenticationResponse registerEmpresa(RegisterRequestEmpresa request) {
         if(!validatorService.usernameValidator(request.getUsername())) throw new IllegalStateException();
-        if(!validatorService.emailValidator(request.getEmail())
-                && !validatorService.validateCNPJ(request.getCNPJ()))
-            throw new IllegalStateException();
+        if(!validatorService.emailValidator(request.getEmail())) throw new IllegalStateException();
+        if(!validatorService.validateCNPJ(request.getCNPJ())) throw new IllegalStateException();
+
 
         var usuario = new Empresa(request.getUsername(),
                 passwordEncoder.encode(request.getSenha()),
