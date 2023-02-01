@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Year;
-import java.util.Date;
+
 
 @Getter
 @Setter
@@ -20,12 +20,13 @@ import java.util.Date;
 @Table(name = "cliente")
 public class Cliente extends Usuario{
 
-    public Cliente(String username, String senha, String chave_sec, String nome, String email, String telefone, UserRole tipoUsuario, String CPF, Year ano_nasc) {
-        super(username, senha, chave_sec, nome, email, telefone, tipoUsuario);
+    public Cliente(String username, String senha, String chave_sec, String nome, String email, String telefone, UserRole tipoUsuario, String CPF, Year ano_nasc, Endereco endereco) {
+        super(username, senha, chave_sec, nome, email, telefone, tipoUsuario, endereco);
         this.CPF = CPF;
         this.ano_nasc = ano_nasc;
     }
 
+    @Column(unique = true)
     private String CPF;
     private Year ano_nasc;
 

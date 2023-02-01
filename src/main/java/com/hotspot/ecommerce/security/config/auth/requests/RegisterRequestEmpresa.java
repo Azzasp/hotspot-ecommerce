@@ -1,5 +1,6 @@
 package com.hotspot.ecommerce.security.config.auth.requests;
 
+import com.hotspot.ecommerce.models.endereco.Endereco;
 import com.hotspot.ecommerce.models.usuarios.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,4 +23,5 @@ public class RegisterRequestEmpresa {
     private String telefone;
     private UserRole tipoUsuario;
     private String CNPJ;
+    private Endereco endereco;
 }

@@ -33,10 +33,12 @@ public class Usuario implements UserDetails {
     )
     @Column(name = "id_usuario")
     private Long id_usuario;
+    @Column(unique = true)
     private String username;
     private String senha;
     private String chave_sec;
     private String nome;
+    @Column(unique = true)
     private String email;
     private String telefone;
 
@@ -46,7 +48,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "endereco_id_endereco")
     private Endereco endereco;
 
-    public Usuario(String username, String senha, String chave_sec, String nome, String email, String telefone,UserRole tipoUsuario) {
+    public Usuario(String username, String senha, String chave_sec, String nome, String email, String telefone,UserRole tipoUsuario, Endereco endereco) {
         this.username = username;
         this.senha = senha;
         this.chave_sec = chave_sec;
@@ -54,11 +56,8 @@ public class Usuario implements UserDetails {
         this.email = email;
         this.telefone = telefone;
         this.tipoUsuario = tipoUsuario;
+        this.endereco = endereco;
     }
-
-    //Implementing UserDetails
-    private boolean locked;
-    private boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -84,7 +83,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return false;
     }
 
     @Override
@@ -94,6 +93,6 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }
