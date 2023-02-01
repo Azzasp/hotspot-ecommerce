@@ -1,4 +1,4 @@
-package com.hotspot.ecommerce.models.mercadorias;
+package com.hotspot.ecommerce.models.mercadorias.categoria;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

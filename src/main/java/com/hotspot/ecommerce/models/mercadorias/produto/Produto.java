@@ -2,7 +2,7 @@ package com.hotspot.ecommerce.models.mercadorias.produto;
 
 
 import com.hotspot.ecommerce.models.carrinho.CarrinhoProduto;
-import com.hotspot.ecommerce.models.mercadorias.Categoria;
+import com.hotspot.ecommerce.models.mercadorias.categoria.Categoria;
 import com.hotspot.ecommerce.models.mercadorias.produto.pedido.PedidoProduto;
 import com.hotspot.ecommerce.models.usuarios.empresa.Empresa;
 import jakarta.persistence.*;
