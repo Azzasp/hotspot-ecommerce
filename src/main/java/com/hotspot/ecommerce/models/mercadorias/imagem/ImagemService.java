@@ -3,38 +3,68 @@ package com.hotspot.ecommerce.models.mercadorias.imagem;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemProdutoRepository;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemRepository;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemServicoRepository;
+import com.hotspot.ecommerce.models.mercadorias.produto.Produto;
+import com.hotspot.ecommerce.models.mercadorias.produto.repository.ProdutoRepository;
+import com.hotspot.ecommerce.models.mercadorias.servico.repository.ServicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ImagemService {
+    private final ProdutoRepository produtoRepository;
+    private final ServicoRepository servicoRepository;
     private final ImagemRepository imagemRepository;
     private final ImagemProdutoRepository imagemProdutoRepository;
     private final ImagemServicoRepository imagemServicoRepository;
 
-    public ResponseEntity<ImagemProduto> insertProdutoImage(ImagemProduto imagemProduto){
-        imagemRepository.save(imagemProduto.getImagem());
-        imagemProdutoRepository.save(imagemProduto);
-        return ResponseEntity.ok().body(imagemProduto);
+    public ResponseEntity<ImagemProduto> insertProdutoImage(Long id_produto, MultipartFile file){
+        var produto = produtoRepository.findById(id_produto).get();
+        var produtoImagem = new ImagemProduto();
+
+        try{
+            if(!file.isEmpty()){
+                byte[] bytes = file.getBytes();
+                String imagemNome = String.valueOf(produto.getId_produto()) + file.getOriginalFilename();
+                Path path = Paths.get("C:/imagens/" + imagemNome);
+                Files.write(path, bytes);
+                produtoImagem.setNome(imagemNome);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        produtoImagem.setProduto(produto);
+
+        return ResponseEntity.ok().body(imagemProdutoRepository.save(produtoImagem));
     }
 
-    public ResponseEntity<ImagemServico> insertServicoImage(ImagemServico imagemServico){
-        imagemRepository.save(imagemServico.getImagem());
-        imagemServicoRepository.save(imagemServico);
-        return ResponseEntity.ok().body(imagemServico);
-    }
+    public ResponseEntity<ImagemServico> insertServicoImage(Long id_servico, MultipartFile file){
+        var servico = servicoRepository.findById(id_servico).get();
+        var servicoImagem = new ImagemServico();
 
-    public ResponseEntity<List<ImagemProduto>> findAllProdutosImage(){
-        return ResponseEntity.ok().body(imagemProdutoRepository.findAll());
-    }
+        try{
+            if(!file.isEmpty()){
+                byte[] bytes = file.getBytes();
+                String imagemNome = String.valueOf(servico.getId_servico()) + file.getOriginalFilename();
+                Path path = Paths.get("C:/imagens/" + imagemNome);
+                Files.write(path, bytes);
+                servicoImagem.setNome(imagemNome);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        servicoImagem.setServico(servico);
 
-    public ResponseEntity<List<ImagemServico>> findAllServicoImage(){
-        return ResponseEntity.ok().body(imagemServicoRepository.findAll());
+        return ResponseEntity.ok().body(imagemServicoRepository.save(servicoImagem));
     }
 
     public ResponseEntity<List<ImagemProduto>> findImageByProdutoId(Long id){
@@ -45,20 +75,18 @@ public class ImagemService {
         return ResponseEntity.ok().body(imagemServicoRepository.findAllServicoImageById(id));
     }
 
-    public ResponseEntity<ImagemProduto> deleteImageByProdutoAndImageId(ImagemProduto imagemProduto){
+    public ResponseEntity<ImagemProduto> deleteImageByProdutoAndImageId(Long id_produto,
+                                                                        Long id_imagem){
         imagemProdutoRepository.
-                deleteProdutoImageById(
-                        imagemProduto.getImagem().getId_imagem(),
-                        imagemProduto.getProduto().getId_produto());
+                deleteProdutoImageById(id_produto, id_imagem);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
-    public ResponseEntity<ImagemProduto> deleteImageByProdutoAndImageId(ImagemServico servico){
+    public ResponseEntity<ImagemServico> deleteImageByServicoAndImageId(Long id_servico,
+                                                                        Long id_imagem){
         imagemServicoRepository.
-                deleteServicoImageById(
-                        servico.getImagem().getId_imagem(),
-                        servico.getServico().getId_servico());
+                deleteServicoImageById(id_servico, id_imagem);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

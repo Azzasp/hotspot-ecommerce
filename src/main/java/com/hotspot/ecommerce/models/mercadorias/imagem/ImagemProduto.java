@@ -26,6 +26,8 @@ public class ImagemProduto {
     @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
     private Produto produto;
 
+    private String nome;
+
     @Embeddable
     @NoArgsConstructor
     @AllArgsConstructor

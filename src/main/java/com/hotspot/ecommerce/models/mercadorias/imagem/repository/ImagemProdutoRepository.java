@@ -18,4 +18,5 @@ public interface ImagemProdutoRepository extends JpaRepository<ImagemProduto, Lo
     @Transactional
     @Modifying
     void deleteProdutoImageById(Long id_imagem, Long id_produto);
+
 }

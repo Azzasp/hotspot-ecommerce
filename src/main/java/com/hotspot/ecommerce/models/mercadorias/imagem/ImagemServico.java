@@ -25,6 +25,8 @@ public class ImagemServico {
     @JoinColumn(name = "id_servico", referencedColumnName = "id_servico")
     private Servico servico;
 
+    private String nome;
+
     @Embeddable
     @AllArgsConstructor
     @NoArgsConstructor
