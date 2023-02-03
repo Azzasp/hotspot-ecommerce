@@ -1,5 +1,6 @@
 package com.hotspot.ecommerce.models.usuarios.cliente.repository;
 
+import com.hotspot.ecommerce.models.usuarios.Usuario;
 import com.hotspot.ecommerce.models.usuarios.cliente.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,8 @@ import java.util.Optional;
 @Transactional
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
 
-    Optional<Cliente> findByUsername(String username);
+    @Query("SELECT username FROM Cliente c WHERE c.username = :username")
+    Optional<Usuario> findByUsername(@NonNull String username);
 
     @Query("select (count(c) > 0) from Cliente c where c.email like ?1")
     boolean existEmail(@NonNull String email);

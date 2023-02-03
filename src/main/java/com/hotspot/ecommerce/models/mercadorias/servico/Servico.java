@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.models.mercadorias.servico;
 
-import com.hotspot.ecommerce.models.mercadorias.Categoria;
+import com.hotspot.ecommerce.models.mercadorias.categoria.Categoria;
 import com.hotspot.ecommerce.models.usuarios.empresa.Empresa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

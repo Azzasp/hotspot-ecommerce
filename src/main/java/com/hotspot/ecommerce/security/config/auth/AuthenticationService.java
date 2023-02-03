@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.security.config.auth;
 
 import com.hotspot.ecommerce.models.endereco.repository.EnderecoRepository;
+import com.hotspot.ecommerce.models.usuarios.Usuario;
 import com.hotspot.ecommerce.models.usuarios.cliente.Cliente;
 import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
 import com.hotspot.ecommerce.models.usuarios.empresa.Empresa;
@@ -19,7 +20,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.validation.Validator;
 
 @Service
 @RequiredArgsConstructor
@@ -86,8 +86,9 @@ public class AuthenticationService {
                 request.getUsername(), request.getPassword()
         ));
 
-        var usuario = usuarioRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+        var usuario = clienteRepository.findByUsername(request.getUsername())
+                .orElse(empresaRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!")));
 
         var jwtToken = jwtService.generateToken(usuario);
         return AuthenticationResponse.builder()
