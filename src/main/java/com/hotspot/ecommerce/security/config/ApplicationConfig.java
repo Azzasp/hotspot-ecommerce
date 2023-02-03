@@ -1,5 +1,7 @@
 package com.hotspot.ecommerce.security.config;
 
+import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
+import com.hotspot.ecommerce.models.usuarios.empresa.repository.EmpresaRepository;
 import com.hotspot.ecommerce.models.usuarios.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,13 +19,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UsuarioRepository usuarioRepository;
+    private final ClienteRepository clienteRepository;
+    private final EmpresaRepository empresaRepository;
 
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        UserDetailsService user;
+
+           return user = username -> clienteRepository.findByUsername(username)
+                   .orElse
+                           (empresaRepository.findByUsername(username)
+                                   .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado")));
     }
 
     @Bean

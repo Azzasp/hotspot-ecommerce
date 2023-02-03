@@ -1,6 +1,7 @@
 package com.hotspot.ecommerce.models.mercadorias.imagem.repository;
 
 import com.hotspot.ecommerce.models.mercadorias.imagem.ImagemProduto;
+import com.hotspot.ecommerce.models.mercadorias.imagem.ImagemServico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface ImagemProdutoRepository extends JpaRepository<ImagemProduto, Lo
     @Modifying
     void deleteProdutoImageById(Long id_imagem, Long id_produto);
 
+    @Query("SELECT imagem FROM ImagemProduto img WHERE img.produto = :id_produto AND img.imagem = :id_imagem")
+    ImagemProduto findEspecificImageById(Long id_produto, Long id_imagem);
 }

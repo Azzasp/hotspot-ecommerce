@@ -3,16 +3,15 @@ package com.hotspot.ecommerce.models.mercadorias.imagem;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemProdutoRepository;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemRepository;
 import com.hotspot.ecommerce.models.mercadorias.imagem.repository.ImagemServicoRepository;
-import com.hotspot.ecommerce.models.mercadorias.produto.Produto;
 import com.hotspot.ecommerce.models.mercadorias.produto.repository.ProdutoRepository;
 import com.hotspot.ecommerce.models.mercadorias.servico.repository.ServicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,7 +22,6 @@ import java.util.List;
 public class ImagemService {
     private final ProdutoRepository produtoRepository;
     private final ServicoRepository servicoRepository;
-    private final ImagemRepository imagemRepository;
     private final ImagemProdutoRepository imagemProdutoRepository;
     private final ImagemServicoRepository imagemServicoRepository;
 
@@ -77,7 +75,13 @@ public class ImagemService {
 
     public ResponseEntity<ImagemProduto> deleteImageByProdutoAndImageId(Long id_produto,
                                                                         Long id_imagem){
-        imagemProdutoRepository.
+        boolean isDeleted = false;
+        var imagem = imagemProdutoRepository.findEspecificImageById(id_produto, id_imagem);
+        String imagemNome = String.valueOf(imagem.getProduto().getId_produto()) + imagem.getNome();
+        Path path = Paths.get("C:/imagens/" + imagemNome);
+        File file = new File(path.toString());
+        if(!file.isDirectory()) isDeleted = file.delete();
+        if(isDeleted) imagemProdutoRepository.
                 deleteProdutoImageById(id_produto, id_imagem);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
@@ -85,8 +89,14 @@ public class ImagemService {
 
     public ResponseEntity<ImagemServico> deleteImageByServicoAndImageId(Long id_servico,
                                                                         Long id_imagem){
-        imagemServicoRepository.
-                deleteServicoImageById(id_servico, id_imagem);
+        boolean isDeleted = false;
+        var imagem = imagemServicoRepository.findEspecificImageById(id_servico, id_imagem);
+        String imagemNome = String.valueOf(imagem.getServico().getId_servico()) + imagem.getNome();
+        Path path = Paths.get("C:/imagens/" + imagemNome);
+        File file = new File(path.toString());
+        if(!file.isDirectory()) isDeleted = file.delete();
+        if(isDeleted) imagemServicoRepository.
+                        deleteServicoImageById(id_servico, id_imagem);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
