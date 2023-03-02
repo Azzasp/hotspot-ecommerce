@@ -80,16 +80,29 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticateCliente(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        var user = clienteRepository.findByUsername(request.getUsername())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        var cliente = clienteRepository.findByUsername(request.getUsername()).orElseThrow();
+        var jwtToken = jwtService.generateToken(cliente);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    public AuthenticationResponse authenticateEmpresa(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+        var empresa = empresaRepository.findByUsername(request.getUsername()).orElseThrow();
+        var jwtToken = jwtService.generateToken(empresa);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

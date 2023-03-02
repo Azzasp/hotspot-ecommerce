@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
-    @Query("SELECT username FROM Cliente c WHERE c.username LIKE :username")
     Optional<Empresa> findByUsername(@NonNull String username);
 
     @Query("select (count(e) > 0) from Empresa e where e.email like ?1")

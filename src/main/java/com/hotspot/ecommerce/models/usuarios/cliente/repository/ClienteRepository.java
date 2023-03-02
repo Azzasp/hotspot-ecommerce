@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
-    
+
     Optional<Cliente> findByUsername(@NonNull String username);
 
     @Query("select (count(c) > 0) from Cliente c where c.email like ?1")
