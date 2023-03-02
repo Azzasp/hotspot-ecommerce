@@ -1,6 +1,6 @@
 package com.hotspot.ecommerce.models.carrinho;
 
-import com.hotspot.ecommerce.models.usuarios.Usuario;
+import com.hotspot.ecommerce.models.usuarios.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +26,8 @@ public class Carrinho {
     private Long id_carrinho;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
     @OneToMany(mappedBy = "carrinho")
     private List<CarrinhoProduto> carrinhoProdutos;

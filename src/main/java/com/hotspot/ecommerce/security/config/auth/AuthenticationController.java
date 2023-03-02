@@ -31,9 +31,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.registerEmpresa(request));
     }
 
-    @PostMapping(value = "/autenticar")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+    @PostMapping(value = "/autenticar/cliente")
+    public ResponseEntity<AuthenticationResponse> authenticateCliente(@RequestBody AuthenticationRequest request){
+        return ResponseEntity.ok(authenticationService.authenticateCliente(request));
+    }
+
+    @PostMapping(value = "/autenticar/empresa")
+    public ResponseEntity<AuthenticationResponse> authenticateEmpresa(@RequestBody AuthenticationRequest request){
+        return ResponseEntity.ok(authenticationService.authenticateEmpresa(request));
     }
 
 }

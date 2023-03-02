@@ -1,8 +1,8 @@
 package com.hotspot.ecommerce.security.config;
 
+import com.hotspot.ecommerce.models.usuarios.Usuario;
 import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
 import com.hotspot.ecommerce.models.usuarios.empresa.repository.EmpresaRepository;
-import com.hotspot.ecommerce.models.usuarios.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,22 +24,35 @@ public class ApplicationConfig {
     private final EmpresaRepository empresaRepository;
 
 
+
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetailsService user;
-
-           return user = username -> clienteRepository.findByUsername(username)
-                   .orElse
-                           (empresaRepository.findByUsername(username)
-                                   .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado")));
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                /*
+                * #################
+                * Operador Ternário no return
+                * #################
+                *
+                * Verifica se existe retorno no findByUsername, caso tenha retorna cliente
+                * se não retorna empresa;
+                *
+                *
+                * */
+                return clienteRepository.findByUsername(username).isEmpty() ?
+                    empresaRepository.findByUsername(username).orElseThrow() :
+                    clienteRepository.findByUsername(username).orElseThrow();
+            }
+        };
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
-        return provider;
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean
@@ -47,8 +61,9 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }

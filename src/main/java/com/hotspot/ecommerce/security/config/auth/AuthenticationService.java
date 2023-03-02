@@ -7,7 +7,6 @@ import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepositor
 import com.hotspot.ecommerce.models.usuarios.empresa.Empresa;
 import com.hotspot.ecommerce.models.usuarios.empresa.repository.EmpresaRepository;
 import com.hotspot.ecommerce.models.usuarios.enums.UserRole;
-import com.hotspot.ecommerce.models.usuarios.repository.UsuarioRepository;
 import com.hotspot.ecommerce.security.config.JwtService;
 import com.hotspot.ecommerce.security.config.auth.requests.AuthenticationRequest;
 import com.hotspot.ecommerce.security.config.auth.requests.RegisterRequestCliente;
@@ -15,6 +14,7 @@ import com.hotspot.ecommerce.security.config.auth.requests.RegisterRequestEmpres
 import com.hotspot.ecommerce.security.validator.ValidatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UsuarioRepository usuarioRepository;
     private final EmpresaRepository empresaRepository;
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
@@ -51,7 +50,7 @@ public class AuthenticationService {
                                     request.getAno_nasc(),
                                     request.getEndereco());
         enderecoRepository.save(request.getEndereco());
-        usuarioRepository.save(usuario);
+        clienteRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -74,25 +73,40 @@ public class AuthenticationService {
                 request.getCNPJ(),
                 request.getEndereco());
         enderecoRepository.save(request.getEndereco());
-        usuarioRepository.save(usuario);
+        empresaRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(), request.getPassword()
-        ));
-
-        var usuario = clienteRepository.findByUsername(request.getUsername())
-                .orElse(empresaRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!")));
-
-        var jwtToken = jwtService.generateToken(usuario);
+    public AuthenticationResponse authenticateCliente(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+        var cliente = clienteRepository.findByUsername(request.getUsername()).orElseThrow();
+        var jwtToken = jwtService.generateToken(cliente);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
+
+    public AuthenticationResponse authenticateEmpresa(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+        var empresa = empresaRepository.findByUsername(request.getUsername()).orElseThrow();
+        var jwtToken = jwtService.generateToken(empresa);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+
 }

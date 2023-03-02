@@ -12,8 +12,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
-@Entity
+import java.util.List;
+
+@MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -61,9 +62,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        var authority =
-                new SimpleGrantedAuthority(tipoUsuario.name());
-        return Collections.singletonList(authority);
+        return List.of(new SimpleGrantedAuthority(tipoUsuario.name()));
     }
 
     @Override
@@ -73,7 +72,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -83,7 +82,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
