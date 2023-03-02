@@ -13,9 +13,8 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
-
-    @Query("SELECT username FROM Cliente c WHERE c.username = :username")
-    Optional<Usuario> findByUsername(@NonNull String username);
+    
+    Optional<Cliente> findByUsername(@NonNull String username);
 
     @Query("select (count(c) > 0) from Cliente c where c.email like ?1")
     boolean existEmail(@NonNull String email);

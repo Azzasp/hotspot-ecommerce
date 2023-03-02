@@ -2,7 +2,6 @@ package com.hotspot.ecommerce.security.config;
 
 import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
 import com.hotspot.ecommerce.models.usuarios.empresa.repository.EmpresaRepository;
-import com.hotspot.ecommerce.models.usuarios.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,22 +22,19 @@ public class ApplicationConfig {
     private final EmpresaRepository empresaRepository;
 
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetailsService user;
 
-           return user = username -> clienteRepository.findByUsername(username)
-                   .orElse
-                           (empresaRepository.findByUsername(username)
-                                   .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado")));
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> clienteRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
-        return provider;
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean
@@ -47,8 +43,9 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }

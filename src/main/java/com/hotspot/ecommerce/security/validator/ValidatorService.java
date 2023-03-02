@@ -3,7 +3,6 @@ package com.hotspot.ecommerce.security.validator;
 
 import com.hotspot.ecommerce.models.usuarios.cliente.repository.ClienteRepository;
 import com.hotspot.ecommerce.models.usuarios.empresa.repository.EmpresaRepository;
-import com.hotspot.ecommerce.models.usuarios.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
