@@ -1,5 +1,7 @@
 package com.hotspot.ecommerce.security.config.auth;
 
+import com.hotspot.ecommerce.models.email.Email;
+import com.hotspot.ecommerce.models.email.EmailService;
 import com.hotspot.ecommerce.models.endereco.repository.EnderecoRepository;
 import com.hotspot.ecommerce.models.usuarios.Usuario;
 import com.hotspot.ecommerce.models.usuarios.cliente.Cliente;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+
     private final EmpresaRepository empresaRepository;
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
@@ -32,6 +35,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthenticationResponse registerCliente(RegisterRequestCliente request) {
 
@@ -52,6 +56,7 @@ public class AuthenticationService {
         enderecoRepository.save(request.getEndereco());
         clienteRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
+        emailService.enviarEmailTexto(new Email(usuario.getEmail(), "Cadastro - Hotspot", "Cadastro efetuado com sucesso!"));
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -75,6 +80,7 @@ public class AuthenticationService {
         enderecoRepository.save(request.getEndereco());
         empresaRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
+        emailService.enviarEmailTexto(new Email(usuario.getEmail(), "Cadastro - Hotspot", "Cadastro efetuado com sucesso!"));
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
