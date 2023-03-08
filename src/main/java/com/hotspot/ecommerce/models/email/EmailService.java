@@ -1,9 +1,7 @@
 package com.hotspot.ecommerce.models.email;
 
 
-import jakarta.mail.Authenticator;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,15 +15,15 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSenderImpl mailSender;
     private final String remetente = "hotspot2023@outlook.com.br";
     private final String password = "AthokUzIjk2023";
 
-    public String enviarEmailTexto(Email email){
+    public void enviarEmailTexto(Email email){
 
 
         try {
 
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
             mailSender.setHost("smtp.office365.com");
             mailSender.setPort(587);
             mailSender.setUsername(remetente);
@@ -46,12 +44,8 @@ public class EmailService {
             simpleMailMessage.setSubject(email.getTitulo());
             simpleMailMessage.setText(email.getMensagem());
             mailSender.send(simpleMailMessage);
-
-            return  "Email Enviado!";
         }catch (Exception e){
             System.out.println(e.getMessage());
-
-            return  "Erro ao enviar Email!";
         }
     }
 

@@ -4,6 +4,7 @@ package com.hotspot.ecommerce.security.config.auth;
 import com.hotspot.ecommerce.security.config.auth.requests.AuthenticationRequest;
 import com.hotspot.ecommerce.security.config.auth.requests.RegisterRequestCliente;
 import com.hotspot.ecommerce.security.config.auth.requests.RegisterRequestEmpresa;
+import com.hotspot.ecommerce.security.config.auth.requests.UpdatePasswordRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final UpdateAccountDataService accountDataService;
 
     @GetMapping
     public ResponseEntity<String> helloWorldJWT(){
@@ -39,6 +41,12 @@ public class AuthenticationController {
     @PostMapping(value = "/autenticar/empresa")
     public ResponseEntity<AuthenticationResponse> authenticateEmpresa(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticateEmpresa(request));
+    }
+
+    @PostMapping(value = "/alterar-senha")
+    public ResponseEntity<AuthenticationResponse> updatePassword(@RequestBody UpdatePasswordRequest request){
+        System.out.println(request);
+        return ResponseEntity.ok(accountDataService.updatePassword(request));
     }
 
 }
