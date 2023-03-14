@@ -11,6 +11,9 @@ import com.hotspot.ecommerce.security.config.auth.requests.UpdatePasswordRequest
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class UpdateAccountDataService {
@@ -41,5 +44,23 @@ public class UpdateAccountDataService {
 
 
     }
+    public void sendUpdatePasswordEmail(Usuario usuario){
+        String message = "Prezado(a),"+
+                "<br> <br>" +
+                "Este é um e-mail de confirmação para informar que a sua senha foi alterada com sucesso. \n" +
+                "<br>" +
+                "Se você não reconhece esta atividade, entre em contato com o nosso suporte imediatamente.\n" +
+                "<br> <br>" +
+                "Atenciosamente,<br>" +
+                "HotSpot - Ecommerce";
+        String titulo = "Confirmação de Alteração de Senha";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("nome", usuario.getNome());
+        map.put("mensagem", message);
+
+        emailService.enviarEmailTemplate(new Email(usuario.getEmail(), titulo, message), map);
+    }
+
 
 }
