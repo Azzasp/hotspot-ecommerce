@@ -22,6 +22,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +59,7 @@ public class AuthenticationService {
         enderecoRepository.save(request.getEndereco());
         clienteRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
-        emailService.enviarEmailTexto(new Email(usuario.getEmail(), "Cadastro - Hotspot", "Cadastro efetuado com sucesso!"));
+        sendRegisterEmail(usuario);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -80,7 +83,7 @@ public class AuthenticationService {
         enderecoRepository.save(request.getEndereco());
         empresaRepository.save(usuario);
         var jwtToken = jwtService.generateToken(usuario);
-        emailService.enviarEmailTexto(new Email(usuario.getEmail(), "Cadastro - Hotspot", "Cadastro efetuado com sucesso!"));
+        sendRegisterEmail(usuario);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -102,6 +105,27 @@ public class AuthenticationService {
                 .build();
     }
 
+
+    public void sendRegisterEmail(Usuario usuario){
+        String message = "Prezado(a),"+
+                "<br> <br>" +
+                "Gostaríamos de agradecer por ter se registrado no nosso site Hotspot! Estamos muito felizes em tê-lo(a) como um novo membro da nossa comunidade." +
+                "<br>" +
+                "A partir de agora, você pode acessar nosso site e desfrutar de todos os recursos que temos a oferecer. Para fazer login, por favor, clique neste link e insira suas informações de login." +
+                "<br>" +
+                "Mais uma vez, agradecemos pelo seu cadastro e esperamos que você aproveite ao máximo a sua experiência em nosso site!" +
+                "<br> <br>" +
+                "Atenciosamente,\n" +
+                "<br>" +
+                "Equipe Hotspot.";
+        String titulo = "Cadastro - Hotspot";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("nome", usuario.getNome());
+        map.put("mensagem", message);
+
+        emailService.enviarEmailTemplate(new Email(usuario.getEmail(), titulo, message), map);
+    }
 
 
 }

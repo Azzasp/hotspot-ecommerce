@@ -11,16 +11,7 @@
             place-items: center;
             padding-top: 0;
         }
-        #image{
-            
-            background-image: url('./hotspot-logo.png');
-            background-size: 80%;
-            background-repeat: no-repeat;
-            background-position: 50% 0%;
-            padding-right: 100px;
-            height: 150px;
-            width: 500px;
-        }
+        
         #msg-container{
             margin-top: -250px;
             padding: 50px;
@@ -29,9 +20,6 @@
         }
     </style>
     <body>
-        <div id="image">
-            
-        </div>
         <div id="msg-container">
             <h2 id="title">
                 Olá, ${nome}!
