@@ -86,33 +86,22 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticateCliente(AuthenticationRequest request) {
+    public AuthenticationResponse login(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        var cliente = clienteRepository.findByUsername(request.getUsername()).orElseThrow();
+        var cliente = clienteRepository.findByUsername(request.getUsername()).isEmpty() ?
+                                    empresaRepository.findByUsername(request.getUsername()).orElseThrow() :
+                                    clienteRepository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(cliente);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse authenticateEmpresa(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
-        var empresa = empresaRepository.findByUsername(request.getUsername()).orElseThrow();
-        var jwtToken = jwtService.generateToken(empresa);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
-    }
 
 
 }

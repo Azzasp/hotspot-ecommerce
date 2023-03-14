@@ -33,19 +33,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.registerEmpresa(request));
     }
 
-    @PostMapping(value = "/autenticar/cliente")
+    @PostMapping(value = "/login")
     public ResponseEntity<AuthenticationResponse> authenticateCliente(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authenticationService.authenticateCliente(request));
-    }
-
-    @PostMapping(value = "/autenticar/empresa")
-    public ResponseEntity<AuthenticationResponse> authenticateEmpresa(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authenticationService.authenticateEmpresa(request));
+        return ResponseEntity.ok(authenticationService.login(request));
     }
 
     @PostMapping(value = "/alterar-senha")
     public ResponseEntity<AuthenticationResponse> updatePassword(@RequestBody UpdatePasswordRequest request){
-        System.out.println(request);
         return ResponseEntity.ok(accountDataService.updatePassword(request));
     }
 
