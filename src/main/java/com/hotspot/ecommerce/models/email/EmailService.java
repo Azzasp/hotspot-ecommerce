@@ -49,6 +49,9 @@ public class EmailService {
         }
     }
 
+    public void enviarEmailTemplate(Email email){
+        
+    }
 
 
 

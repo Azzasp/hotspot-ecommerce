@@ -1,12 +1,44 @@
 <html>
-    <head></head>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">        
+    </head>
+    <style>
+        body{
+            font-family: 'Montserrat', sans-serif;
+            display: grid;
+            place-items: center;
+            padding-top: 0;
+        }
+        #image{
+            
+            background-image: url('./hotspot-logo.png');
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position: 50% 0%;
+            padding-right: 100px;
+            height: 150px;
+            width: 500px;
+        }
+        #msg-container{
+            margin-top: -250px;
+            padding: 50px;
+            justify-content: left;
+            width: 800px;
+        }
+    </style>
     <body>
-        <img src="./hotspot-logo.png" alt="logo">
-        <h2>
-            Olá, ${nome}!
-        </h2>
-        <p>
-            ${mensagem}
-        </p>
+        <div id="image">
+            
+        </div>
+        <div id="msg-container">
+            <h2 id="title">
+                Olá, ${nome}!
+            </h2>
+            <p id="mensage">
+                ${mensagem}
+            </p>
+        </div>
     </body>
 </html>
