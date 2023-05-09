@@ -11,15 +11,18 @@ public class EmpresaController {
 
     private EmpresaService empresaService;
 
-    // Visualizar perfil empresa
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<EmpresaDTO> findById(@PathVariable Long id){
+    @GetMapping(path = "/")
+    public ResponseEntity<EmpresaDTO> findById(@RequestParam Long id){
         return empresaService.findById(id);
     }
 
-    // excluir cadastro da empresa
+    @PostMapping("/")
+    public ResponseEntity<EmpresaDTO> updateAccount(@RequestBody EmpresaDTO empresa){
+        return empresaService.updateEmpresa(empresa);
+    }
+
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<EmpresaDTO> excluirCadastro(@PathVariable Long id){
+    public ResponseEntity<EmpresaDTO> deleteAccount(@PathVariable Long id){
         return empresaService.deleteById(id);
     }
 

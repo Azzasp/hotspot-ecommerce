@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +20,6 @@ public class CarrinhoService {
 
     // TODO: Refactor Logic
 
-    private Carrinho carrinho;
     private CarrinhoRepository carrinhoRepository;
     private ProdutoMapper produtoMapper;
     private CarrinhoProdutoRepository carrinhoProdutoRepository;

@@ -23,6 +23,11 @@ public class ClienteService{
         return ResponseEntity.ok(clienteMapper.toClienteDTO(cliente));
     }
 
+    public ResponseEntity<ClienteDTO> updateAccount(ClienteDTO cliente){
+        clienteRepository.save(clienteMapper.toCliente(cliente));
+        return ResponseEntity.ok(cliente);
+    }
+
 
     public ResponseEntity<ClienteDTO> deleteById(@PathVariable Long id){
         clienteRepository.deleteById(id);

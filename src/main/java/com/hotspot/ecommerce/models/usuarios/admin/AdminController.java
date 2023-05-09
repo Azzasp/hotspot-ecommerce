@@ -30,7 +30,7 @@ public class AdminController {
         return adminService.deleteClienteById(id);
     }
 
-    @GetMapping(value = "/empresa")
+    @GetMapping(value = "/empresas")
     public ResponseEntity<List<EmpresaDTO>> findAllEmpresas(){
         return adminService.findAllEmpresa();
     }

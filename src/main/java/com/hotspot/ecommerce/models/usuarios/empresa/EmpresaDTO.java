@@ -30,16 +30,6 @@ public class EmpresaDTO {
         this.CNPJ = CNPJ;
     }
 
-    /*
-    "Prototype" // iria copiar a Empresa em EmpresaDTO, mas ja temos o EmpresaMapper
-    public EmpresaDTO(Empresa empresa) {
-        this.id_empresa = empresa.getId_empresa();
-        this.username = empresa.getUsername();
-        this.nome = empresa.getNome();
-        this.email = empresa.getEmail();
-        this.telefone = empresa.getTelefone();
-        this.CNPJ = empresa.getCNPJ();
-    }*/
 
 
 }

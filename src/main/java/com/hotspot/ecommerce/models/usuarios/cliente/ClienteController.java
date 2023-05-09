@@ -14,13 +14,18 @@ public class ClienteController {
     private ClienteService clienteService;
 
     //Visualizar perfil
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<ClienteDTO> visualizarPerfil(@PathVariable Long id){
+    @GetMapping(path = "/")
+    public ResponseEntity<ClienteDTO> findAccount(@RequestParam Long id){
         return clienteService.findById(id);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<ClienteDTO> updateAccount(@RequestBody ClienteDTO cliente){
+        return clienteService.updateAccount(cliente);
+    }
+
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity excluirCadastro(@PathVariable Long id){
+    public ResponseEntity deleteAccount(@PathVariable Long id){
         return clienteService.deleteById(id);
     }
 
